@@ -7,8 +7,12 @@ html
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   body
-    h1 The X Effect
-    p.notice = notice
-    p.alert = alert
+    .topbar
+      h1 The X Effect
+      nav
+        .links
+          = link_to "Log out", :destroy_user_session, method: :delete
+      p.notice = notice
+      p.alert = alert
     = yield
     
