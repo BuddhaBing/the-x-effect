@@ -1,11 +1,15 @@
 source 'https://rubygems.org'
 
+ruby '2.3.3'
+
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
   "https://github.com/#{repo_name}.git"
 end
 
-
+gem 'dotenv-rails', require: 'dotenv/rails-now'
+gem 'require_all'
+gem "font-awesome-rails"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.2'
 # Use postgresql as the database for Active Record
@@ -38,6 +42,10 @@ gem 'jbuilder', '~> 2.5'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+  gem 'factory_girl_rails'
+  gem 'haikunator'
+  gem 'faker'
+  gem 'database_cleaner'
 end
 
 group :development do
@@ -52,7 +60,7 @@ end
 group :test do
   gem 'rspec-rails'
   gem 'capybara'
-  gem 'coveralls', require: false
+  gem 'codecov', :require => false
 end
 
 gem 'devise'
