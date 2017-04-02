@@ -7,6 +7,6 @@ before_install:
 - sudo apt-get install -qq postgresql-server-dev-9.6
 
 before_script:
- - psql -c 'create database the-x-effect_test;' -U postgres
+ - psql -c 'create database the_x_effect_test;' -U postgres
 
 script: bundle exec rspec spec
