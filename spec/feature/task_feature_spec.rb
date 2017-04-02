@@ -12,4 +12,13 @@ feature 'Creating a task' do
       expect(page).not_to have_link "New Task"
     end
   end
+  context 'checking valid dates' do
+    before do
+      sign_up
+    end
+    it 'does not allow to create a task with start date in the the past' do
+      new_task("Exercise", "01/01/2017")
+      expect(page).to have_content("Start date cannot be in the past")
+    end
+  end
 end
