@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170401160653) do
+ActiveRecord::Schema.define(version: 20170402132309) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,15 @@ ActiveRecord::Schema.define(version: 20170401160653) do
     t.datetime "updated_at", null: false
     t.string   "name"
     t.integer  "user_id"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.boolean  "monday"
+    t.boolean  "tuesday"
+    t.boolean  "wednesday"
+    t.boolean  "thursday"
+    t.boolean  "friday"
+    t.boolean  "saturday"
+    t.boolean  "sunday"
     t.index ["user_id"], name: "index_tasks_on_user_id", using: :btree
   end
 
