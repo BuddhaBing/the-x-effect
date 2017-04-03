@@ -12,7 +12,7 @@ class TasksController < ApplicationController
   def create
     task = current_user.tasks.build(task_params)
     if task.save
-      redirect_back(fallback_location: authenticated_root_path)
+      redirect_to :authenticated_root
     else
       redirect_back(fallback_location: new_task_path)
       flash[:alert] = task.errors.full_messages
@@ -22,7 +22,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :start_date, :end_date, :monday,
+    params.require(:task).permit(:name, :description, :start_date, :end_date, :monday,
                                  :tuesday, :wednesday, :thursday, :friday,
                                  :saturday, :sunday)
   end

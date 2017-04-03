@@ -1,1 +1,8 @@
 = link_to "New Task", new_task_path, class: "new-task", id: "new-task"
+- if @tasks.empty?
+  | No tasks yet
+- else
+  - @tasks.sort_by(&:start_date).each do |task|
+    article.task-name
+      header.task-name
+        p.name = task.name

@@ -21,11 +21,11 @@ feature 'Creating a task' do
       expect(page).to have_content("Name can't be blank")
     end
     it 'does not allow to create a task with start date in the the past' do
-      new_task("Exercise", "01/01/2017")
+      new_task("Exercise", "For at least 30 mins", "01/01/2017")
       expect(page).to have_content("Start date can't be in the past")
     end
     it 'does not allow to create a task with end date prior to the start date' do
-      new_task("Exercise", "02/01/3017", "01/01/3017")
+      new_task("Exercise", "For at least 30 mins", "02/01/3017", "01/01/3017")
       expect(page).to have_content("End date can't be before the start date")
     end
   end
