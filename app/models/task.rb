@@ -9,4 +9,9 @@ class Task < ApplicationRecord
 
   validates_date :end_date, :on_or_after => :start_date,
                                :on_or_after_message => "can't be before the start date"
+
+  def active
+    !end_date || end_date > Date.today
+  end
+  
 end

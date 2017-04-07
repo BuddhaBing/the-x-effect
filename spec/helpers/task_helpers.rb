@@ -1,4 +1,4 @@
-def new_task(name = "Meditate", description = "For at least 10 mins", start_date = "03/04/2017", end_date = "03/05/2017",
+def new_task(name = "Meditate", description = "For at least 10 mins", start_date = Date.today, end_date = start_date + 1,
              mon = true, tues = true, weds = true, thurs = true,
              fri = true, sat = true, sun = true)
   click_link "New Task"
