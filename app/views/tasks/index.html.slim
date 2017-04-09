@@ -5,4 +5,5 @@
   - @tasks.sort_by(&:start_date).each do |task|
     article.task-name
       header.task-name
-        p.name = task.name
+        = link_to task_path(task)
+          p.name = task.name
