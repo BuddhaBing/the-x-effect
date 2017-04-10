@@ -15,8 +15,8 @@ class Task < ApplicationRecord
     !end_date || end_date > Date.today
   end
 
-  def active_day
-
+  def active_day(date)
+    send(date.strftime("%A").downcase)
   end
 
 end
