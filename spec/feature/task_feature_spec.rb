@@ -30,3 +30,15 @@ feature 'Creating a task' do
     end
   end
 end
+feature 'marking dates on a task' do
+  before do
+    sign_up
+    new_task
+    click_link "Meditate"
+  end
+  it 'displays all of the dates for the task\'s duration' do
+    date = Date.today.strftime("%a %d/%m/%Y")
+    expect(page).to have_content date
+
+  end
+end

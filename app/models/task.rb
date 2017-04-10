@@ -15,4 +15,8 @@ class Task < ApplicationRecord
     !end_date || end_date > Date.today
   end
 
+  def active_day
+
+  end
+
 end
