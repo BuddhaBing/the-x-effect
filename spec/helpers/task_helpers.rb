@@ -23,3 +23,13 @@ def check_or_uncheck(day, check_box_name)
     uncheck check_box_name
   end
 end
+
+def set_days(task, bool)
+  task.monday = bool
+  task.tuesday = bool
+  task.wednesday = bool
+  task.thursday = bool
+  task.friday = bool
+  task.saturday = bool
+  task.sunday = bool
+end
