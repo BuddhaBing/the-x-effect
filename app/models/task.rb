@@ -8,8 +8,9 @@ class Task < ApplicationRecord
   validates_date :start_date, :on_or_after => :today,
                               :on_or_after_message => "can't be in the past"
 
-  validates_date :end_date, :on_or_after => :start_date,
-                               :on_or_after_message => "can't be before the start date"
+  validates_date :end_date, :on_or_after => :start_date, :on_or_before => lambda { 10.years.since },
+                               :on_or_after_message => "can't be before the start date",
+                               :on_or_before_message => "can only be a maximum of 10 years in the future"
 
   def active
     !end_date || end_date > Date.today
