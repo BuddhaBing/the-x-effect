@@ -11,6 +11,11 @@ class TasksController < ApplicationController
 
   def create
     task = current_user.tasks.build(task_params)
+    task.start_date.upto task.end_date do |date|
+      if task.active_day(date)
+        task.active_dates.build(task_date: date)
+      end
+    end
     if task.save
       redirect_to :authenticated_root
     else
