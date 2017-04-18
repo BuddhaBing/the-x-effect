@@ -37,12 +37,21 @@ end
 feature 'marking dates on a task' do
   before do
     sign_up
-    new_task
+    new_task(name = "Meditate", description = "For at least 10 mins", start_date = Date.today, end_date = start_date + 30,
+                 mon = true, tues = true, weds = true, thurs = true,
+                 fri = true, sat = false, sun = false)
     click_link "Meditate"
   end
-  it 'displays all of the dates for the task\'s duration' do
-    date = Date.today.strftime("%a %d/%m/%Y")
-    expect(page).to have_content date
-
+  it 'only displays dates for the task\'s duration that fall on an active day' do
+    Date.today.upto(Date.today + 30) do |date|
+      if Task.first.active_day(date)
+        expect(page).to have_content date.strftime("%a %d/%m/%Y")
+      else
+        expect(page).not_to have_content date.strftime("%a %d/%m/%Y")
+      end
+    end
+  end
+  it 'shows links for marking tasks as complete for a particular date' do
+    expect(page).to have_link "Complete"
   end
 end

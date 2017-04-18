@@ -1,2 +1,3 @@
 - @task.start_date.upto @task.end_date do |date|
-  = p date.strftime("%a %d/%m/%Y")
+  - if @task.active_day(date)
+    p = date.strftime("%a %d/%m/%Y")
