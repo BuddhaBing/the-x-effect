@@ -10,9 +10,14 @@ class ActiveDatesController < ApplicationController
 
   def update
     task = Task.find(params[:task_id])
-    active_date = ActiveDate.find(params[:date_id])
+    active_date = task.active_dates.find_by(task_date: params[:id])
     active_date.completed = true
-    active_date.save
+    redirect_back(fallback_location: task_path(task))
+    if active_date.save
+      flash[:notice] = "Awesome! Keep it up!"
+    else
+      flash[:alert] = active_date.errors.full_messages
+    end
   end
 
 end

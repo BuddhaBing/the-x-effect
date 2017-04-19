@@ -1,4 +1,5 @@
+- day_id = 0
 - @task.start_date.upto @task.end_date do |date|
   - if @task.active_day(date)
     p = date.strftime("%a %d/%m/%Y")
-    = link_to "Complete", task_active_date_path(@task, date), method: :put
+    = link_to "Complete", task_active_date_path(@task, date), id: "day-#{day_id += 1}-complete", method: :put
