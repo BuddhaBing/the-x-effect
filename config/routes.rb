@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :tasks
+  resources :tasks do
+    resources :active_dates
+  end
 
 end
