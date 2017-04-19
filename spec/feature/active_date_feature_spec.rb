@@ -10,6 +10,6 @@ feature 'marking a task as complete' do
   end
   it 'user can mark a task as missed for a particular date' do
     click_link "day-1-missed"
-    expect(page).to have_content("Aw! :(")
+    expect(page).to have_content("Aw shucks!")
   end
 end
