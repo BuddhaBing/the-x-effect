@@ -52,6 +52,9 @@ feature 'marking dates on a task' do
     end
   end
   it 'shows links for marking tasks as complete for a particular date' do
-    expect(page).to have_link "Complete"
+    expect(page).to have_link "day-1-complete"
+  end
+  it 'shows links for marking tasks as missed for a particular date' do
+    expect(page).to have_link "day-1-missed"
   end
 end
