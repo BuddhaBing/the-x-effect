@@ -1,8 +1,53 @@
 - day_id = 0
-- @task.start_date.upto @task.end_date do |date|
-  - if @task.active_day(date)
-    p = date.strftime("%a %d/%m/%Y")
-    = link_to task_active_date_path(@task, task_date: date, completed: true), id: "day-#{day_id += 1}-complete", method: :put
-      = fa_icon "times-circle-o"
-    = link_to task_active_date_path(@task, task_date: date, completed: false), id: "day-#{day_id}-missed", method: :put
-      = fa_icon "ban"
+.container
+  - start_month = get_numerical_month(@task.start_date)
+  - end_month = get_numerical_month(@task.end_date)
+  - dates = []
+  - start_month.upto end_month do |month|
+    - dates << (@task.start_date.upto(@task.end_date)).select { |date| get_numerical_month(date) == month }
+  - dates.each do |month|
+    .grid-calendar
+      h2.display-3.margin-top = pretty_month(month.first)
+      .row.calendar-week-header
+        - days_of_week.each do |day|
+          .col-xs-1.grid-cell
+            div
+              div
+                span = day
+      - week_day = 1
+      - days_to_drop = 0
+      .row.calendar-week
+        - month.each do |date|
+          - week_day.upto month.first.cwday - 1 do
+            .col-xs-1.grid-cell
+              div
+                div
+                  span
+                    - week_day += 1
+          - unless week_day > 7
+            .col-xs-1.grid-cell
+              div
+                div
+                  span
+                    - week_day += 1
+                    = pretty_date(date)
+                    - days_to_drop += 1
+                  - if @task.active_day(date)
+                    span
+                    = link_to task_active_date_path(@task, task_date: date, completed: true), id: "day-#{day_id += 1}-complete", method: :put
+                      = fa_icon "times-circle-o"
+                    = link_to task_active_date_path(@task, task_date: date, completed: false), id: "day-#{day_id}-missed", method: :put
+                      = fa_icon "ban"
+      - month.drop(days_to_drop).each_slice(7) do |week|
+        .row.calendar-week
+          - week.each do |date|
+              .col-xs-1.grid-cell
+                div
+                  div
+                    span = pretty_date(date)
+                    - if @task.active_day(date)
+                      span
+                      = link_to task_active_date_path(@task, task_date: date, completed: true), id: "day-#{day_id += 1}-complete", method: :put
+                        = fa_icon "times-circle-o"
+                      = link_to task_active_date_path(@task, task_date: date, completed: false), id: "day-#{day_id}-missed", method: :put
+                        = fa_icon "ban"

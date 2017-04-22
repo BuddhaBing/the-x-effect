@@ -7,12 +7,22 @@ html
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   body
-    .topbar
-      h1 The X Effect
-      nav
-        .links
-          = link_to "Log out", :destroy_user_session, method: :delete
-      p.notice = notice
-      p.alert = alert
+    nav.navbar.navbar-toggleable-md.navbar-light.bg-faded
+      .container-fluid
+        .navbar-header
+          h1 The X Effect
+          ul.navbar-nav
+            li.nav-item.active
+              = link_to "Home", root_path, class: "navbar-brand"
+            li.nav-item
+              = link_to "Log out", :destroy_user_session, method: :delete
+        - if notice
+          .alert.alert-info.alert-dismissable.fadeOut
+            a.close  href="#" data-dismiss="alert" aria-label="close" &times;
+            = notice
+        - if alert
+          .alert.alert-danger.alert-dismissable.fadeOut
+            a.close href="#" data-dismiss="alert" aria-label="close" &times;
+            = alert
     = yield
     
