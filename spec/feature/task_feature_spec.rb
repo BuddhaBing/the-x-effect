@@ -28,9 +28,9 @@ feature 'Creating a task' do
       new_task("Exercise", "For at least 30 mins", Date.today, Date.today - 1)
       expect(page).to have_content("End date can't be before the start date")
     end
-    it 'does not allow to create a task with end date more than 10 years in the future' do
-      new_task("Exercise", "For at least 30 mins", Date.today, Date.today.years_since(11))
-      expect(page).to have_content("End date can only be a maximum of 10 years in the future")
+    it 'does not allow to create a task with end date more than 5 years in the future' do
+      new_task("Exercise", "For at least 30 mins", Date.today, Date.today.years_since(6))
+      expect(page).to have_content("End date can only be a maximum of 5 years in the future")
     end
   end
 end

@@ -10,18 +10,6 @@ module ActiveDatesHelper
     date.strftime("%d/%m/%y")
   end
 
-  def increment_start_day(start_day)
-    start_day == 7 ? start_day = 1 : start_day += 1
-  end
-
-  def get_numerical_month(date)
-    date.mon
-  end
-
-  def get_numerical_year(date)
-    date.year
-  end
-
   def pretty_month(date)
     date.strftime("%B")
   end
