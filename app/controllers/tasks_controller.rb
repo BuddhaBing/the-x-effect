@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   before_action :authenticate_user!
+  respond_to :html, :js
 
   def index
     @tasks = Task.all
@@ -26,6 +27,8 @@ class TasksController < ApplicationController
 
   def show
     @task = Task.find(params[:id])
+    dates = array_of_months(@task.start_date.upto(@task.end_date))
+    @paginated_months = Kaminari.paginate_array(dates).page(params[:page]).per(1)
   end
 
   private
@@ -34,6 +37,20 @@ class TasksController < ApplicationController
     params.require(:task).permit(:name, :description, :start_date, :end_date, :monday,
                                  :tuesday, :wednesday, :thursday, :friday,
                                  :saturday, :sunday)
+  end
+
+  def array_of_months(date_range)
+    dates = []
+    month = []
+    date_range.each do |date|
+      if date.mday == 1 && !month.empty?
+        dates << month
+        month = []
+      else
+        month << date
+      end
+    end
+    return dates
   end
 
 end

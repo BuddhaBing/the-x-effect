@@ -14,4 +14,18 @@ module ActiveDatesHelper
     date.strftime("%B")
   end
 
+  def array_of_months(date_range)
+    dates = []
+    month = []
+    date_range.each do |date|
+      if date.mday == 1 && !month.empty?
+        dates << month
+        month = []
+      else
+        month << date
+      end
+    end
+    return dates
+  end
+
 end

@@ -1,14 +1,11 @@
 - day_id = 0
 .container
-  - dates = []
-  - month = []
-  - @task.start_date.upto(@task.end_date) do |date|
-    - if date.mday == 1 && !month.empty?
-      - dates << month
-      - month = []
-    - else
-      - month << date
-  - dates.each do |month|
+  / - dates = array_of_months(@task.start_date.upto(@task.end_date))
+  / - dates.each do |month|
+  / - paginate @paginated_months, remote: true
+  - paginate @paginated_months
+  / - rel_next_prev_link_tags @paginated_months
+  - @paginated_months.each do |month|
     .grid-calendar
       h2.display-3.margin-top = pretty_month(month.first)
       .row.calendar-week-header
@@ -54,3 +51,6 @@
                         = fa_icon "times-circle-o"
                       = link_to task_active_date_path(@task, task_date: date, completed: false), id: "day-#{day_id}-missed", method: :put
                         = fa_icon "ban"
+  - link_to_prev_page @paginated_months, 'Prev Page'
+  - link_to_next_page @paginated_months, 'Next Page'
+  / - page_entries_info @paginated_months
