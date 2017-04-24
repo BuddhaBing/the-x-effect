@@ -73,10 +73,38 @@ $column-width: percentage(1/$number-of-days);
       justify-content: center;
       width: 100%;
 
-      > div {
-        height: 0;
-        padding: 50% 0;
-      }
+      // > div {
+      //   height: 0;
+      //   padding: 30% 0;
+      // }
     }
+  }
+  .complete a {
+    color: green;
+    padding: 5px;
+  }
+  .missed a {
+    color: red;
+    padding: 5px;
+  }
+  .actions {
+    font-size: 1.5rem;
+    padding-top: 6%;
+  }
+  .month-day {
+    vertical-align: middle;
+    font-size: 2.5rem;
+    padding: 10%;
+    padding-left: 2rem;
+    width: 100%;
+  }
+  .active-date {
+    color: black;
+  }
+  .inactive-date {
+    color: gray;
+  }
+  .today {
+    box-shadow: 0 0 0px 2px deepskyblue inset;
   }
 }

@@ -1,6 +1,7 @@
 class TasksController < ApplicationController
   before_action :authenticate_user!
-  respond_to :html, :js
+
+  include ActiveDatesHelper
 
   def index
     @tasks = Task.all
@@ -37,20 +38,6 @@ class TasksController < ApplicationController
     params.require(:task).permit(:name, :description, :start_date, :end_date, :monday,
                                  :tuesday, :wednesday, :thursday, :friday,
                                  :saturday, :sunday)
-  end
-
-  def array_of_months(date_range)
-    dates = []
-    month = []
-    date_range.each do |date|
-      if date.mday == 1 && !month.empty?
-        dates << month
-        month = []
-      else
-        month << date
-      end
-    end
-    return dates
   end
 
 end

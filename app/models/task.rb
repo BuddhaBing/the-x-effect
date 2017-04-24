@@ -21,4 +21,8 @@ class Task < ApplicationRecord
     send(date.strftime("%A").downcase)
   end
 
+  def marked_date(date)
+    active_dates.find_by(task_date: date).completed != nil
+  end
+
 end

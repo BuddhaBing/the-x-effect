@@ -14,6 +14,10 @@ module ActiveDatesHelper
     date.strftime("%B")
   end
 
+  def day_of_month(date)
+    date.mday
+  end
+
   def array_of_months(date_range)
     dates = []
     month = []
@@ -26,6 +30,18 @@ module ActiveDatesHelper
       end
     end
     return dates
+  end
+
+  def square_class(date)
+    date == Date.today ? 'cal-square today' : 'cal-square'
+  end
+
+  def date_class(task, date)
+    task.active_day(date) ? 'active-date' : 'inactive-date'
+  end
+
+  def show_actions?(task, date)
+    task.active_day(date) && date <= Date.today && !task.marked_date(date)
   end
 
 end
