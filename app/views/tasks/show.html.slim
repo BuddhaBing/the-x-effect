@@ -10,31 +10,28 @@
             div
               div
                 span = day
-      - week_day = 1
-      - days_to_drop = 0
       .row.calendar-week
+        - week_day = 1
+        - days_to_drop = 0
         - month.each do |date|
           - week_day.upto month.first.cwday - 1 do
             .col-xs-1.grid-cell
-              div
-                div
-                  span
-                    - week_day += 1
+              - week_day += 1
           - unless week_day > 7
             .col-xs-1.grid-cell
               div class=(square_class(date))
                 .month-day
                   span class=(date_class(@task, date))
+                    = completed_date?(@task, date) ? "X" : day_of_month(date)
                     - week_day += 1
-                    = day_of_month(date)
                     - days_to_drop += 1
                 - if show_actions?(@task, date)
                   .actions
                     span.complete
-                      = link_to task_active_date_path(@task, task_date: date, completed: true), id: "day-#{day_id += 1}-complete", method: :put
+                      = link_to task_active_date_path(@task, task_date: date, completed: true), class: "pad-icons", id: "day-#{day_id += 1}-complete", method: :put
                         = fa_icon "times-circle-o"
                     span.missed
-                      = link_to task_active_date_path(@task, task_date: date, completed: false), id: "day-#{day_id}-missed", method: :put
+                      = link_to task_active_date_path(@task, task_date: date, completed: false), class: "pad-icons", id: "day-#{day_id}-missed", method: :put
                         = fa_icon "ban"
       - month.drop(days_to_drop).each_slice(7) do |week|
         .row.calendar-week
@@ -43,13 +40,12 @@
                 div class=(square_class(date))
                   .month-day
                     span class=(date_class(@task, date))
-                      = day_of_month(date)
+                      = completed_date?(@task, date) ? "X" : day_of_month(date)
                   - if show_actions?(@task, date)
                     .actions
                       span.complete
-                        = link_to task_active_date_path(@task, task_date: date, completed: true), id: "day-#{day_id += 1}-complete", method: :put
+                        = link_to task_active_date_path(@task, task_date: date, completed: true), class: "pad-icons", id: "day-#{day_id += 1}-complete", method: :put
                           = fa_icon "times-circle-o"
                       span.missed
-                        = link_to task_active_date_path(@task, task_date: date, completed: false), id: "day-#{day_id}-missed", method: :put
+                        = link_to task_active_date_path(@task, task_date: date, completed: false), class: "pad-icons", id: "day-#{day_id}-missed", method: :put
                           = fa_icon "ban"
-  

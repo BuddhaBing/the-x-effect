@@ -42,16 +42,6 @@ feature 'marking dates on a task' do
                  fri = true, sat = false, sun = false)
     click_link "Meditate"
   end
-  # TODO: Remove this? Might not be needed anymore
-  xit 'only displays dates for the task\'s duration that fall on an active day' do
-    Date.today.upto(Date.today + 30) do |date|
-      if Task.first.active_day(date)
-        expect(page).to have_content date.strftime("%d/%m/%Y")
-      else
-        expect(page).not_to have_content date.strftime("%d/%m/%Y")
-      end
-    end
-  end
   it 'shows links for marking tasks as complete for a particular date' do
     expect(page).to have_link "day-1-complete"
   end

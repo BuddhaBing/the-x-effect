@@ -13,16 +13,12 @@ class Task < ApplicationRecord
                                :on_or_after_message => "can't be before the start date",
                                :on_or_before_message => "can only be a maximum of 5 years in the future"
 
-  def active
+  def active?
     !end_date || end_date > Date.today
   end
 
-  def active_day(date)
+  def active_day?(date)
     send(date.strftime("%A").downcase)
-  end
-
-  def marked_date(date)
-    active_dates.find_by(task_date: date).completed != nil
   end
 
 end
