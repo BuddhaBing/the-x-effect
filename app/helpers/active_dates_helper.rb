@@ -46,10 +46,10 @@ module ActiveDatesHelper
     task.active_day?(date) && date <= Date.today && !marked_date?(task, date)
   end
 
-  def marked_date?(task, date)
-    date = task.active_dates.find_by(task_id: date)
-    date.completed != nil if date
-  end
+  # def marked_date?(task, date)
+  #   date = task.active_dates.find_by(task_id: date)
+  #   date.completed != nil if date
+  # end
 
   def completed_date?(task, date)
     date = task.active_dates.find_by(task_date: date)
