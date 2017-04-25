@@ -1,6 +1,7 @@
 class Task < ApplicationRecord
   belongs_to :user
   has_many :active_dates, dependent: :destroy
+  acts_as_taggable
 
   validates_presence_of :name, :start_date
   validates_length_of :name, maximum: 30

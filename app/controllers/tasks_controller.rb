@@ -6,10 +6,14 @@ class TasksController < ApplicationController
     format.js
   end
 
-  include ActiveDatesHelper
+  def tag_cloud
+    @tags = Task.tag_counts_on(:tags)
+  end
 
   def index
+    @tags = ActsAsTaggableOn::Tag.all
     @tasks = Task.all
+    params[:tag] ? @tasks = Task.tagged_with(params[:tag]) : @tasks = Task.all
   end
 
   def new
@@ -42,7 +46,7 @@ class TasksController < ApplicationController
   def task_params
     params.require(:task).permit(:name, :description, :start_date, :end_date, :monday,
                                  :tuesday, :wednesday, :thursday, :friday,
-                                 :saturday, :sunday)
+                                 :saturday, :sunday, :tag_list)
   end
 
 end

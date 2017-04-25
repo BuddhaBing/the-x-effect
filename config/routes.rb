@@ -10,17 +10,11 @@ Rails.application.routes.draw do
       root 'devise/sessions#new', as: :unauthenticated_root
     end
   end
-  # 
-  # concern :paginatable do
-  #   get '(page/:page)', action: :index, on: :collection, as: ''
-  # end
-  #
-  # resources :tasks, concerns: :paginatable do
-  #   resources :active_dates
-  # end
 
   resources :tasks do
     resources :active_dates
   end
+
+  get 'tags/:tag', to: 'tasks#index', as: :tag
 
 end
