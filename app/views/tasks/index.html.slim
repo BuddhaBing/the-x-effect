@@ -1,4 +1,4 @@
-= link_to "New Task", new_task_path, class: "new-task", id: "new-task"
+= link_to "New Task", new_task_path, class: "new-task", id: "new-task", :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'
 - if @tasks.empty?
   | No tasks yet
 - else

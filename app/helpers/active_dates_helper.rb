@@ -29,6 +29,7 @@ module ActiveDatesHelper
         month << date
       end
     end
+    dates << month if !month.empty?
     return dates
   end
 

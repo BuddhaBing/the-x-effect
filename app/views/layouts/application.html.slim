@@ -3,6 +3,10 @@ html
   head
     title
       | The X Effect
+    meta content=("text/html; charset=UTF-8") http-equiv="Content-Type"
+    meta charset="utf-8"
+    meta content="width=device-width, initial-scale=1 name=viewport, shrink-to-fit=no"
+    meta content="ie=edge" http-equiv="x-ua-compatible"
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
@@ -24,5 +28,7 @@ html
           .alert.alert-danger.alert-dismissable.fadeOut
             a.close href="#" data-dismiss="alert" aria-label="close" &times;
             = alert
+    #modal-window class="modal hide" role="dialog" aria-labelled-by="modal-window" aria-hidden="true"
     = yield
+
     
