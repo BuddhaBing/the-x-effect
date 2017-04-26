@@ -19,7 +19,9 @@ html
             li.nav-item.active
               = link_to "Home", root_path, class: "navbar-brand"
             li.nav-item
-              = link_to "Log out", :destroy_user_session, method: :delete
+              - if user_signed_in?
+                = link_to "Log out", :destroy_user_session, method: :delete
+                = link_to "New Task", new_task_path, class: "new-task", id: "new-task", :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'
         - if notice
           .alert.alert-info.alert-dismissable.fadeOut
             a.close  href="#" data-dismiss="alert" aria-label="close" &times;

@@ -1,13 +1,37 @@
-= link_to "New Task", new_task_path, class: "new-task", id: "new-task", :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'
-br
-- if @tasks.empty?
-  | No tasks yet
-- else
-  .tag-cloud
-    == @tags.map { |t| link_to t, tag_path(t.name), class: "btn btn-secondary btn-margin" }.join('')
-  br
-  - @tasks.sort_by(&:start_date).each do |task|
-    article.task-name
-      header.task-name
-        = link_to task_path(task)
-          p.name = task.name
+.row
+  .col-md-3
+  .col-md-6
+    - if @tasks.empty?
+      | No tasks yet
+    - else
+      .tag-cloud
+        == @tags.map { |t| link_to t, tag_path(t.name), class: "btn btn-secondary btn-margin" }.join('')
+  .col-md-3
+- if @tasks.any? { |task| task.active? }
+  .row.active-tasks
+    .col-md-3
+    .col-md-6
+      h3 Active Tasks
+      - colors = %w(primary success info warning).cycle.each
+      - @tasks.select { |task| task.active? }.sort_by(&:start_date).each do |task|
+        div class="card card-inverse card-#{colors.next} mb-3 text-center"
+          .card-block
+            .card-blockquote
+              = link_to task_path(task), class: "task-link"
+                h4.card-title = task.name
+              p.card-text = task.tags.map(&:name).join(", ")
+  .col-md-3
+- if @tasks.any? { |task| !task.active? }
+  .row.inactive-tasks
+    .col-md-3
+    .col-md-6
+      h3 Inactive Tasks
+      - colors = %w(primary success info warning).cycle.each
+      - @tasks.select { |task| !task.active? }.sort_by(&:start_date).reverse.each do |task|
+        div class="card card-inverse card-#{colors.next} mb-3 text-center"
+          .card-block
+            .card-blockquote
+              = link_to task_path(task), class: "task-link"
+                h4.card-title = task.name
+              p.card-text = task.tags.map(&:name).join(", ")
+    .col-md-3
