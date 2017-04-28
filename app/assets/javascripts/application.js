@@ -22,7 +22,6 @@ $(document).ajaxComplete(function(){
     $("input[data-role=tagsinput], select[multiple][data-role=tagsinput]").tagsinput();
 });
 
-
 $(document).on('turbolinks:load', function() {
     $('#alerts').fadeOut( 5000, function() {
     });

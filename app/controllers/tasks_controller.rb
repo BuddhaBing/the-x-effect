@@ -20,10 +20,12 @@ class TasksController < ApplicationController
 
   def create
     @task = current_user.tasks.build(task_params)
-    if @task.save
-      @task.start_date.upto task.end_date do |date|
+    if @task.valid?
+      @task.start_date.upto @task.end_date do |date|
         @task.active_dates.build(task_date: date) if @task.active_day?(date)
       end
+    end
+    if @task.save
       redirect_to :authenticated_root, notice: 'Task successfully created.'
     else
       render :new, notice: @task.errors.full_messages
