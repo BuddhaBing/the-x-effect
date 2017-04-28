@@ -1,4 +1,7 @@
 class ActiveDatesController < ApplicationController
+
+  respond_to :html, :js
+
   def index
   end
 
@@ -12,7 +15,7 @@ class ActiveDatesController < ApplicationController
     task = Task.find(params[:task_id])
     active_date = task.active_dates.find_by(task_date: params[:task_date])
     active_date.completed = params[:completed]
-    redirect_back(fallback_location: task_path(task))
+    redirect_to task
     if active_date.save
       flash[:notice] = active_date.completed ? "Awesome! Keep it up!" : "Aw shucks!"
     else

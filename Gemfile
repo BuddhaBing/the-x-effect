@@ -17,6 +17,8 @@ end
 gem 'kaminari'
 gem 'twitter-typeahead-rails'
 gem 'bootstrap', '~> 4.0.0.alpha6'
+gem 'bootstrap-tagsinput-rails'
+gem 'devise-bootstrap-views'
 gem "animate-rails"
 gem 'acts-as-taggable-on', '~> 4.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

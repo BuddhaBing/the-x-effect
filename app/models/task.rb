@@ -3,7 +3,7 @@ class Task < ApplicationRecord
   has_many :active_dates, dependent: :destroy
   acts_as_taggable
 
-  validates_presence_of :name, :start_date
+  validates_presence_of :name, :start_date, :end_date
   validates_length_of :name, maximum: 30
   validates_uniqueness_of :name, scope: :user_id
 

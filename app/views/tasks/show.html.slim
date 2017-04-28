@@ -28,10 +28,10 @@
                 - if show_actions?(@task, date)
                   .actions
                     span.complete
-                      = link_to task_active_date_path(@task, task_date: date, completed: true), class: "pad-icons", id: "day-#{day_id += 1}-complete", method: :put
+                      = link_to task_active_date_path(@task, task_date: date, completed: true), class: "pad-icons", id: "day-#{day_id += 1}-complete", method: :put, remote: true
                         = fa_icon "times-circle-o"
                     span.missed
-                      = link_to task_active_date_path(@task, task_date: date, completed: false), class: "pad-icons", id: "day-#{day_id}-missed", method: :put
+                      = link_to task_active_date_path(@task, task_date: date, completed: false), class: "pad-icons", id: "day-#{day_id}-missed", method: :put, remote: true
                         = fa_icon "ban"
       - month.drop(days_to_drop).each_slice(7) do |week|
         .row.calendar-week
@@ -44,8 +44,8 @@
                   - if show_actions?(@task, date)
                     .actions
                       span.complete
-                        = link_to task_active_date_path(@task, task_date: date, completed: true), class: "pad-icons", id: "day-#{day_id += 1}-complete", method: :put
+                        = link_to task_active_date_path(@task, task_date: date, completed: true), class: "pad-icons", id: "day-#{day_id += 1}-complete", method: :put, remote: true
                           = fa_icon "times-circle-o"
                       span.missed
-                        = link_to task_active_date_path(@task, task_date: date, completed: false), class: "pad-icons", id: "day-#{day_id}-missed", method: :put
+                        = link_to task_active_date_path(@task, task_date: date, completed: false), class: "pad-icons", id: "day-#{day_id}-missed", method: :put, remote: true
                           = fa_icon "ban"

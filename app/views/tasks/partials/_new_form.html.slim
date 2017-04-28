@@ -1,4 +1,7 @@
 = form_for @task, remote: true, :html => { :role => "form" } do |f|
+  ul.errors
+    - @task.errors.full_messages.each do |msg|
+      li.alert-danger = msg
   .form-group
     = f.label :name
     br
@@ -50,6 +53,6 @@
     = f.label :tag_list
       | Tags
     br
-    = f.text_field :tag_list, class: "form-control typeahead", "data-role" => "tagsinput"
+    = f.text_field :tag_list, class: "form-control", "data-role" => "tagsinput"
   .actions
     = f.submit "Save", class: "btn btn-primary"

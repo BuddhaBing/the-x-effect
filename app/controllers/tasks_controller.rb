@@ -2,10 +2,7 @@ class TasksController < ApplicationController
   before_action :authenticate_user!
   include ActiveDatesHelper
 
-  respond_to do |format|
-    format.html
-    format.js
-  end
+  respond_to :html, :js
 
   def tag_cloud
     @tags = Task.tag_counts_on(:tags)
@@ -22,17 +19,14 @@ class TasksController < ApplicationController
   end
 
   def create
-    task = current_user.tasks.build(task_params)
-    task.start_date.upto task.end_date do |date|
-      if task.active_day?(date)
-        task.active_dates.build(task_date: date)
+    @task = current_user.tasks.build(task_params)
+    if @task.save
+      @task.start_date.upto task.end_date do |date|
+        @task.active_dates.build(task_date: date) if @task.active_day?(date)
       end
-    end
-    if task.save
-      redirect_to :authenticated_root
+      redirect_to :authenticated_root, notice: 'Task successfully created.'
     else
-      redirect_back(fallback_location: new_task_path)
-      flash[:alert] = task.errors.full_messages
+      render :new, notice: @task.errors.full_messages
     end
   end
 

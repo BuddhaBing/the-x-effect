@@ -19,6 +19,7 @@
             .card-blockquote
               = link_to task_path(task), class: "task-link"
                 h4.card-title = task.name
+              p.card-text = task.description
               p.card-text = task.tags.map(&:name).join(", ")
   .col-md-3
 - if @tasks.any? { |task| !task.active? }
@@ -33,5 +34,6 @@
             .card-blockquote
               = link_to task_path(task), class: "task-link"
                 h4.card-title = task.name
+              p.card-text = task.description
               p.card-text = task.tags.map(&:name).join(", ")
     .col-md-3

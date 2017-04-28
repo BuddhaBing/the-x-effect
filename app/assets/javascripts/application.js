@@ -11,40 +11,19 @@
 // about supported directives.
 //
 //= require jquery
-//= require tether
-//= require bootstrap
-//= require twitter/typeahead.min
 //= require jquery_ujs
+//= require tether
+//= require bootstrap-sprockets
+//= require bootstrap-tagsinput
 //= require turbolinks
 //= require_tree .
 
-// var tags = new Bloodhound({
-//   datumTokenizer: Bloodhound.tokenizers.obj.whitespace('tag'),
-//   queryTokenizer: Bloodhound.tokenizers.whitespace,
-//   local: [
-//     { tag: 'Meditation' },
-//     { tag: 'Exercise' },
-//     { tag: 'Finances' }
-//   ]
-// });
-//
-// // initialize the bloodhound suggestion engine
-// var promise = tags.initialize();
-//
-// promise
-// .done(function() { console.log('ready to go!'); })
-// .fail(function() { console.log('err, something went wrong :('); });
-//
-// $('#tags .typeahead').typeahead(null, {
-//   displayKey: 'tag',
-//   source: tags.ttAdapter(),
-//   minLength: 3,
-//   highlight: true
-// });
-//
-// // var engine = new Bloodhound({
-// //   initialize: false,
-// //   local: ['meditation', 'exercise', 'finances'],
-// //   queryTokenizer: Bloodhound.tokenizers.whitespace,
-// //   datumTokenizer: Bloodhound.tokenizers.whitespace
-// // });
+$(document).ajaxComplete(function(){
+    $("input[data-role=tagsinput], select[multiple][data-role=tagsinput]").tagsinput();
+});
+
+
+$(document).on('turbolinks:load', function() {
+    $('#alerts').fadeOut( 5000, function() {
+    });
+});
