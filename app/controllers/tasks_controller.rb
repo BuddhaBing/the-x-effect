@@ -1,4 +1,5 @@
 class TasksController < ApplicationController
+  before_action :set_task, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
   include ActiveDatesHelper
 
@@ -20,11 +21,7 @@ class TasksController < ApplicationController
 
   def create
     @task = current_user.tasks.build(task_params)
-    if @task.valid?
-      @task.start_date.upto @task.end_date do |date|
-        @task.active_dates.build(task_date: date) if @task.active_day?(date)
-      end
-    end
+    build_dates
     if @task.save
       redirect_to :authenticated_root, notice: 'Task successfully created.'
     else
@@ -33,12 +30,23 @@ class TasksController < ApplicationController
   end
 
   def show
-    @task = Task.find(params[:id])
     dates = array_of_months(@task.start_date.upto(@task.end_date))
     @paginated_months = Kaminari.paginate_array(dates).page(params[:page]).per(1)
   end
 
   private
+
+  def set_task
+    @task = Task.find(params[:id])
+  end
+
+  def build_dates
+    if @task.valid?
+      @task.start_date.upto @task.end_date do |date|
+        @task.active_dates.build(task_date: date) if @task.active_day?(date)
+      end
+    end
+  end
 
   def task_params
     params.require(:task).permit(:name, :description, :start_date, :end_date, :monday,
