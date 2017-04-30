@@ -22,4 +22,8 @@ class Task < ApplicationRecord
     send(date.strftime("%A").downcase)
   end
 
+  def days_complete
+    self.active_dates.find_by(completed: nil)
+  end
+
 end
