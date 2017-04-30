@@ -29,4 +29,12 @@ describe Task do
       expect(subject.active_day?(subject.start_date)).to eq false
     end
   end
+  context '#days_complete' do
+    it 'returns the total number of days marked as complete' do
+      FactoryGirl.create(:user, username: "Rob Brentnall", email: "test@test.com", password: "123456", password_confirmation: "123456")
+      FactoryGirl.create_list(:task, 1, user: User.first)
+      FactoryGirl.create_list(:active_date, 365, task: Task.first)
+      expect(subject.days_complete).to eq 0
+    end
+  end
 end

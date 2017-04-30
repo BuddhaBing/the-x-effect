@@ -22,4 +22,8 @@ class Task < ApplicationRecord
     send(date.strftime("%A").downcase)
   end
 
+  def days_complete
+    active_dates.select { |date| date.completed }.size
+  end
+
 end

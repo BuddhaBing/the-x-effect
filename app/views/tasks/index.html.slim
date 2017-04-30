@@ -13,7 +13,7 @@
     .col-md-6
       h3 Active Tasks
       - colors = %w(primary success info warning).cycle.each
-      - @tasks.select { |task| task.active? }.sort_by(&:start_date).each do |task|
+      - active_tasks.each do |task|
         div class="card card-inverse card-#{colors.next} mb-3 text-center"
           .card-block
             .card-blockquote
@@ -28,7 +28,7 @@
     .col-md-6
       h3 Inactive Tasks
       - colors = %w(primary success info warning).cycle.each
-      - @tasks.select { |task| !task.active? }.sort_by(&:start_date).reverse.each do |task|
+      - inactive_tasks.each do |task|
         div class="card card-inverse card-#{colors.next} mb-3 text-center"
           .card-block
             .card-blockquote

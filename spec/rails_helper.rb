@@ -8,6 +8,7 @@ require 'rspec/rails'
 require 'capybara/rails'
 require 'validates_timeliness'
 require 'require_all'
+require_rel 'support'
 require_rel 'helpers'
 # Add additional requires below this line. Rails is not loaded until this point!
 

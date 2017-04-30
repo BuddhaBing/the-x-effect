@@ -5,14 +5,9 @@ class TasksController < ApplicationController
 
   respond_to :html, :js
 
-  def tag_cloud
-    @tags = Task.tag_counts_on(:tags)
-  end
-
   def index
-    @tags = ActsAsTaggableOn::Tag.all
-    @tasks = Task.all
-    params[:tag] ? @tasks = Task.tagged_with(params[:tag]) : @tasks = Task.all
+    params[:tag] ? @tasks = current_user.tasks.tagged_with(params[:tag]) : @tasks = current_user.tasks.all
+    @tags = current_user.tasks.tag_counts_on(:tags)
   end
 
   def new

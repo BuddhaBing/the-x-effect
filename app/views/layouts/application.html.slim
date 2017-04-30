@@ -23,13 +23,13 @@ html
                 = link_to "Log out", :destroy_user_session, method: :delete
                 = link_to "New Task", new_task_path, class: "new-task", id: "new-task", :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'
     .container
-      #alerts
+      #notifications
         - if notice
-          .alert.alert-info.alert-dismissable
+          #notices.alert.alert-info.alert-dismissable
             a.close  href="#" data-dismiss="alert" aria-label="close" &times;
             = notice
         - if alert
-          .alert.alert-danger.alert-dismissable
+          #alerts.alert.alert-danger.alert-dismissable
             a.close href="#" data-dismiss="alert" aria-label="close" &times;
             = alert
       #modal-window class="modal" role="dialog" aria-labelled-by="modal-window" aria-hidden="true"
