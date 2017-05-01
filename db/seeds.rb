@@ -17,3 +17,5 @@ FactoryGirl.create_list(:task, 10)
 Task.all.each do |task|
   FactoryGirl.create_list(:active_date, 365, task: task)
 end
+
+p Task.first.active_dates

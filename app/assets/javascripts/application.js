@@ -23,7 +23,7 @@ $(document).ajaxComplete(function(){
 });
 
 $(document).on('turbolinks:load', function() {
-    if ($("#notifications").children().length; > 0) {
+    if ($("#notifications").children().length > 0) {
         $('#notifications').fadeOut( 5000, function() {
         });
     }
