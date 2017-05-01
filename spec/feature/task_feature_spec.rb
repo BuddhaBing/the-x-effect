@@ -38,8 +38,8 @@ feature 'marking dates on a task' do
   before do
     sign_up
     new_task(name = "Meditate", description = "For at least 10 mins", start_date = Date.today, end_date = start_date + 30,
-                 mon = true, tues = true, weds = true, thurs = true,
-                 fri = true, sat = false, sun = false)
+             mon = true, tues = true, weds = true, thurs = true,
+             fri = true, sat = false, sun = false)
     click_link "Meditate"
   end
   it 'shows links for marking tasks as complete for a particular date' do
