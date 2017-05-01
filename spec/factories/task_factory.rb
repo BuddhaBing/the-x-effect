@@ -41,7 +41,7 @@ FactoryGirl.define do
     saturday true
     sunday true
     tag_list
-    user User.first
+    user_id
   end
 
 end
