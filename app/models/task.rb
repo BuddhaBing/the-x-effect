@@ -14,6 +14,7 @@ class Task < ApplicationRecord
                                :on_or_after_message => "can't be before the start date",
                                :on_or_before_message => "can only be a maximum of 5 years in the future"
 
+
   def active?
     !end_date || end_date > Date.today
   end
@@ -23,11 +24,23 @@ class Task < ApplicationRecord
   end
 
   def days_complete
-    active_dates.select { |date| date.completed }.size
+    active_dates.where(completed: true).count
   end
 
   def days_missed
-    active_dates.select { |date| date.completed == false }.size
+    active_dates.where(completed: false).count
+  end
+
+  def days_remaining
+    active_dates.where(completed: nil).count
+  end
+
+  def current_streak
+    last_marked_date = active_dates.where.not(completed: nil).last
+    p last_marked_date
+    return 0 if !last_marked_date || last_marked_date.completed == false
+    dates = active_dates.where(completed: true).reverse
+    dates.take_while { |date| date.completed }.size
   end
 
 end
