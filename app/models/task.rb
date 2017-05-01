@@ -26,4 +26,8 @@ class Task < ApplicationRecord
     active_dates.select { |date| date.completed }.size
   end
 
+  def days_missed
+    active_dates.select { |date| date.completed == false }.size
+  end
+
 end
