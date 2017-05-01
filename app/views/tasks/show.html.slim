@@ -4,7 +4,7 @@
     == render "tasks/partials/show_stats"
   - @paginated_months.each do |month|
     .grid-calendar
-      h2.display-3.margin-top = pretty_month(month.first)
+      h2.display-3 = pretty_month(month.first)
       == paginate @paginated_months
       .row.calendar-week-header
         - days_of_week.each do |day|
