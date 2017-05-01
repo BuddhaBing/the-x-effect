@@ -37,10 +37,15 @@ class Task < ApplicationRecord
 
   def current_streak
     last_marked_date = active_dates.where.not(completed: nil).last
-    p last_marked_date
     return 0 if !last_marked_date || last_marked_date.completed == false
     dates = active_dates.where(completed: true).reverse
     dates.take_while { |date| date.completed }.size
+  end
+
+  def best_streak
+    return 0 if !active_dates.where(completed: true).exists?
+    completed_chunks = active_dates.all.chunk { |date| date.completed || nil }
+    completed_chunks.map { |_, x| x.size }.max
   end
 
 end

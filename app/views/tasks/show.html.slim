@@ -1,5 +1,12 @@
 - day_id = 0
 .container id="paginator"
+  .row
+    ul.stats
+      li Days complete: #{@task.days_complete}
+      li Days missed: #{@task.days_missed}
+      li Days remaining: #{@task.days_remaining}
+      li Current streak: #{@task.current_streak}
+      li Best streak: #{@task.best_streak}
   - @paginated_months.each do |month|
     .grid-calendar
       h2.display-3.margin-top = pretty_month(month.first)

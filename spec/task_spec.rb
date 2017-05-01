@@ -82,4 +82,41 @@ describe Task do
       expect(Task.first.current_streak).to eq 2
     end
   end
+  context '#best_streak' do
+    before do
+      FactoryGirl.create(:user, username: "Rob Brentnall", email: "test@test.com", password: "123456", password_confirmation: "123456")
+      FactoryGirl.create_list(:task, 1, user: User.first)
+      FactoryGirl.create_list(:active_date, 365, task: Task.first)
+    end
+    it 'should return zero if no dates have ever been marked complete' do
+      expect(Task.first.best_streak).to eq 0
+    end
+    it 'should return one when the best streak is one' do
+      active_date = Task.first.active_dates.first
+      active_date.update(completed: true)
+      active_date.save!
+      active_date = Task.first.active_dates.second
+      active_date.update(completed: false)
+      active_date.save!
+      active_date = Task.first.active_dates.first
+      active_date.update(completed: true)
+      active_date.save!
+      expect(Task.first.best_streak).to eq 1
+    end
+    it 'should return 2 when the best streak is two' do
+      active_date = Task.first.active_dates.first
+      active_date.update(completed: true)
+      active_date.save!
+      active_date = Task.first.active_dates.second
+      active_date.update(completed: true)
+      active_date.save!
+      active_date = Task.first.active_dates.third
+      active_date.update(completed: false)
+      active_date.save!
+      active_date = Task.first.active_dates.fourth
+      active_date.update(completed: true)
+      active_date.save!
+      expect(Task.first.best_streak).to eq 2
+    end
+  end
 end
