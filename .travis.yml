@@ -5,6 +5,7 @@ before_install:
  - sudo apt-get update -qq
  - sudo apt-get install -qq postgresql-server-dev-9.6
 script:
- - bundle exec bin/rake db:create
- - bundle exec bin/rake db:migrate
+ - bundle exec rake db:drop RAILS_ENV=test
+ - bundle exec rake db:create RAILS_ENV=test
+ - bundle exec rake db:schema:load RAILS_ENV=test
  - bundle exec rspec spec
