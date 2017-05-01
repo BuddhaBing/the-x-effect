@@ -8,6 +8,8 @@
       li Unmarked days: #{@task.unmarked_days}
       li Current streak: #{@task.current_streak}
       li Best streak: #{@task.best_streak}
+      li Percent complete to date: #{@task.percent_complete_to_date}
+      li Percent complete overall: #{@task.percent_complete_overall}
   - @paginated_months.each do |month|
     .grid-calendar
       h2.display-3.margin-top = pretty_month(month.first)

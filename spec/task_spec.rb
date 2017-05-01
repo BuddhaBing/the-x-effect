@@ -147,29 +147,63 @@ describe Task do
       FactoryGirl.create(:task, name: Faker::Superhero.name, user: User.first)
       FactoryGirl.create_list(:active_date, 2, task: Task.first)
     end
-    it 'should return 0% if no dates have been marked either missed or completed' do
-      expect(Task.first.percent_complete_to_date).to eq "0%"
+    it 'should return 0.00% if no dates have been marked either missed or completed' do
+      expect(Task.first.percent_complete_to_date).to eq "0.00%"
     end
-    it 'should return 0% if the only date has been marked missed' do
+    it 'should return 0.00% if the only date has been marked missed' do
       active_date = Task.first.active_dates.first
       active_date.update(completed: false)
       active_date.save!
-      expect(Task.first.percent_complete_to_date).to eq "0%"
+      expect(Task.first.percent_complete_to_date).to eq "0.00%"
     end
-    it 'should return 100% if the only date has been marked completed' do
+    it 'should return 100.00% if the only date has been marked completed' do
       active_date = Task.first.active_dates.first
       active_date.update(completed: true)
       active_date.save!
-      expect(Task.first.percent_complete_to_date).to eq "100%"
+      expect(Task.first.percent_complete_to_date).to eq "100.00%"
     end
-    it 'should return 50% if one of two dates was marked completed and the other missed' do
+    it 'should return 50.00% if one of two dates was marked completed and the other missed' do
       active_date = Task.first.active_dates.first
       active_date.update(completed: true)
       active_date.save!
       active_date = Task.first.active_dates.second
       active_date.update(completed: false)
       active_date.save!
-      expect(Task.first.percent_complete_to_date).to eq "50%"
+      expect(Task.first.percent_complete_to_date).to eq "50.00%"
+    end
+  end
+  context '#percent_complete_overall' do
+    before do
+      FactoryGirl.create(:user, username: "Rob Brentnall", email: "test@test.com", password: "123456", password_confirmation: "123456")
+      FactoryGirl.create(:task, name: Faker::Superhero.name, user: User.first)
+      FactoryGirl.create_list(:active_date, 10, task: Task.first)
+    end
+    it 'should return 0.00% if no dates have been marked either missed or completed' do
+      expect(Task.first.percent_complete_overall).to eq "0.00%"
+    end
+    it 'should return 0.00% if one date of ten has been marked missed and none completed' do
+      active_date = Task.first.active_dates.first
+      active_date.update(completed: false)
+      active_date.save!
+      expect(Task.first.percent_complete_overall).to eq "0.00%"
+    end
+    it 'should return 10.00% if one date of ten has been marked completed and none missed' do
+      active_date = Task.first.active_dates.first
+      active_date.update(completed: true)
+      active_date.save!
+      expect(Task.first.percent_complete_overall).to eq "10.00%"
+    end
+    it 'should return 20.00% if two dates of ten has been marked completed and one missed' do
+      active_date = Task.first.active_dates.first
+      active_date.update(completed: true)
+      active_date.save!
+      active_date = Task.first.active_dates.second
+      active_date.update(completed: false)
+      active_date.save!
+      active_date = Task.first.active_dates.third
+      active_date.update(completed: true)
+      active_date.save!
+      expect(Task.first.percent_complete_overall).to eq "20.00%"
     end
   end
 end
