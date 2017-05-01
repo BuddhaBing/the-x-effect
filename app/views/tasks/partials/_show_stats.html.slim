@@ -1,0 +1,28 @@
+br
+table.table.table-hover.table-inverse.table-wide.table-centered.bg-primary
+  thead
+    tr.bg-primary
+      th Days complete
+      th Days missed
+      th Days remaining
+      th Unmarked days
+  tbody
+    tr.bg-primary
+      th scope="row" #{@task.days_complete} / #{@task.days_complete + @task.days_missed}
+      td #{@task.days_missed} / #{@task.days_complete + @task.days_missed}
+      td #{@task.days_remaining}
+      td #{@task.unmarked_days}
+br
+table.table.table-hover.table-inverse.table-wide.table-centered.bg-primary
+  thead
+    tr.bg-primary
+      th Current streak
+      th Best streak
+      th % complete to date
+      th % complete overall
+  tbody
+    tr.bg-primary
+      th scope="row" #{@task.current_streak}
+      td #{@task.best_streak}
+      td #{@task.percent_complete_to_date}
+      td #{@task.percent_complete_overall}

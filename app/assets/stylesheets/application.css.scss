@@ -55,3 +55,8 @@
     vertical-align: baseline;
     border-radius: .25em;
 }
+table.table-wide{ width:100%; }
+table.table-wide tr td{ width:25%; }
+.table-centered th, .table-centered td, .table-centered thead th {
+    text-align: center;
+}
