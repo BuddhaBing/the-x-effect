@@ -119,4 +119,26 @@ describe Task do
       expect(Task.first.best_streak).to eq 2
     end
   end
+  context '#unmarked_days' do
+    before do
+      FactoryGirl.create(:user, username: "Rob Brentnall", email: "test@test.com", password: "123456", password_confirmation: "123456")
+      FactoryGirl.create(:task, name: Faker::Superhero.name, user: User.first)
+      FactoryGirl.create_list(:active_date, 1, task: Task.first)
+    end
+    it 'should return one if one date (up to and including today\'s date) is unmarked' do
+      expect(Task.first.unmarked_days).to eq 1
+    end
+    it 'should return zero if no date (up to and including today\'s date) is marked as completed' do
+      active_date = Task.first.active_dates.first
+      active_date.update(completed: true)
+      active_date.save!
+      expect(Task.first.unmarked_days).to eq 0
+    end
+    it 'should return zero if no date (up to and including today\'s date) is marked as missed' do
+      active_date = Task.first.active_dates.first
+      active_date.update(completed: false)
+      active_date.save!
+      expect(Task.first.unmarked_days).to eq 0
+    end
+  end
 end

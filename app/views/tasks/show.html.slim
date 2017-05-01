@@ -5,6 +5,7 @@
       li Days complete: #{@task.days_complete} / #{@task.days_complete + @task.days_missed}
       li Days missed: #{@task.days_missed} / #{@task.days_complete + @task.days_missed}
       li Days remaining: #{@task.days_remaining}
+      li Unmarked days: #{@task.unmarked_days}
       li Current streak: #{@task.current_streak}
       li Best streak: #{@task.best_streak}
   - @paginated_months.each do |month|

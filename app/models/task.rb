@@ -35,6 +35,10 @@ class Task < ApplicationRecord
     active_dates.where(completed: nil).count
   end
 
+  def unmarked_days
+    active_dates.where("completed IS ? AND task_date <= ?", nil, Date.today).count
+  end
+
   def current_streak
     last_marked_date = active_dates.where.not(completed: nil).last
     return 0 if !last_marked_date || last_marked_date.completed == false
