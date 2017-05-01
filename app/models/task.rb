@@ -52,4 +52,10 @@ class Task < ApplicationRecord
     completed_chunks.map { |_, x| x.size }.max
   end
 
+  def percent_complete_to_date
+    comp, missed, unmarked = days_complete.to_f, days_missed.to_f, unmarked_days.to_f
+    return "0%" if comp + missed + unmarked == 0.0
+    "#{((comp / (comp + missed + unmarked)) * 100).to_i}%"
+  end
+
 end

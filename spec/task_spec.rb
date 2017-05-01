@@ -141,4 +141,35 @@ describe Task do
       expect(Task.first.unmarked_days).to eq 0
     end
   end
+  context '#percent_complete_to_date' do
+    before do
+      FactoryGirl.create(:user, username: "Rob Brentnall", email: "test@test.com", password: "123456", password_confirmation: "123456")
+      FactoryGirl.create(:task, name: Faker::Superhero.name, user: User.first)
+      FactoryGirl.create_list(:active_date, 2, task: Task.first)
+    end
+    it 'should return 0% if no dates have been marked either missed or completed' do
+      expect(Task.first.percent_complete_to_date).to eq "0%"
+    end
+    it 'should return 0% if the only date has been marked missed' do
+      active_date = Task.first.active_dates.first
+      active_date.update(completed: false)
+      active_date.save!
+      expect(Task.first.percent_complete_to_date).to eq "0%"
+    end
+    it 'should return 100% if the only date has been marked completed' do
+      active_date = Task.first.active_dates.first
+      active_date.update(completed: true)
+      active_date.save!
+      expect(Task.first.percent_complete_to_date).to eq "100%"
+    end
+    it 'should return 50% if one of two dates was marked completed and the other missed' do
+      active_date = Task.first.active_dates.first
+      active_date.update(completed: true)
+      active_date.save!
+      active_date = Task.first.active_dates.second
+      active_date.update(completed: false)
+      active_date.save!
+      expect(Task.first.percent_complete_to_date).to eq "50%"
+    end
+  end
 end
