@@ -4,7 +4,7 @@
     == render "tasks/partials/index_stats"
   .col-md-6
     - if @tasks.empty?
-      | No tasks yet
+      h3 No tasks yet
     - else
       .tag-cloud
         h3 Tags
