@@ -1,10 +1,13 @@
 .row
   .col-md-3
+    h3 Statistics
+    == render "tasks/partials/index_stats"
   .col-md-6
     - if @tasks.empty?
       | No tasks yet
     - else
       .tag-cloud
+        h3 Tags
         == @tags.map { |t| link_to t, tag_path(t.name), class: "btn btn-secondary btn-margin" }.join('')
   .col-md-3
 - if @tasks.any? { |task| task.active? }

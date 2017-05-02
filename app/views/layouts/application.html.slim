@@ -22,7 +22,7 @@ html
               - if user_signed_in?
                 = link_to "Log out", :destroy_user_session, method: :delete
                 = link_to "New Task", new_task_path, class: "new-task", id: "new-task", :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'
-    .container
+    .container-fluid
       #notifications
         - if notice
           #notices.alert.alert-info.alert-dismissable
