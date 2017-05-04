@@ -206,4 +206,26 @@ describe Task do
       expect(Task.first.percent_complete_overall).to eq "20.00%"
     end
   end
+  context '#total_days_complete' do
+    before do
+      arr = %w(first second third)
+      FactoryGirl.create(:user, username: "Rob Brentnall", email: "test@test.com", password: "123456", password_confirmation: "123456")
+      arr.size.times do |i|
+        FactoryGirl.create(:task, name: Faker::Superhero.name, user: User.first)
+        FactoryGirl.create_list(:active_date, 10, task: Task.send(arr[i]))
+      end
+    end
+    it 'should return 0 if no dates have been marked either missed or completed on any task' do
+      expect(Task.total_days_complete).to eq 0
+    end
+    it 'should return 3 if one date has been marked either completed on two different tasks' do
+      arr = %w(first second third)
+      arr.size.times do |i|
+        active_date = Task.send(arr[i]).active_dates.first
+        active_date.update(completed: true)
+        active_date.save!
+      end
+      expect(Task.total_days_complete).to eq 3
+    end
+  end
 end

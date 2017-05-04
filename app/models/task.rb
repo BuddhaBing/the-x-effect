@@ -66,4 +66,8 @@ class Task < ApplicationRecord
     "#{number_with_precision((comp / (comp + missed + unmarked + days)) * 100, precision: 2)}%"
   end
 
+  def self.total_days_complete
+    all.map { |task| task.days_complete }.reduce { |sum, days| sum + days }
+  end
+
 end

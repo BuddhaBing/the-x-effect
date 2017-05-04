@@ -2,7 +2,7 @@ br
 table.table.table-hover.table-inverse.bg-primary
   tr
     th Total days complete
-    td = @tasks.inject { |sum, task| sum + task.days_complete } 
+    td = Task.total_days_complete
   tr
     th Total days missed
     td  method
