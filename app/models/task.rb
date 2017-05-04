@@ -38,6 +38,7 @@ class Task < ApplicationRecord
   end
 
   def unmarked_days
+    p active_dates.where("completed IS ? AND task_date <= ?", nil, Date.today).each { |date| date.task_date }
     active_dates.where("completed IS ? AND task_date <= ?", nil, Date.today).count
   end
 
@@ -64,10 +65,6 @@ class Task < ApplicationRecord
     comp, missed, unmarked, days = days_complete.to_f, days_missed.to_f, unmarked_days.to_f, days_remaining.to_f
     return "0.00%" if comp + missed + unmarked == 0.0
     "#{number_with_precision((comp / (comp + missed + unmarked + days)) * 100, precision: 2)}%"
-  end
-
-  def self.total_days_complete
-    all.map { |task| task.days_complete }.reduce { |sum, days| sum + days }
   end
 
 end
