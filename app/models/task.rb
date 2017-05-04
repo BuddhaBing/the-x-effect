@@ -38,7 +38,6 @@ class Task < ApplicationRecord
   end
 
   def unmarked_days
-    p active_dates.where("completed IS ? AND task_date <= ?", nil, Date.today).each { |date| date.task_date }
     active_dates.where("completed IS ? AND task_date <= ?", nil, Date.today).count
   end
 

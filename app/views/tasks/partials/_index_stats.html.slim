@@ -2,16 +2,16 @@ br
 table.table.table-hover.table-inverse.bg-primary
   tr
     th Total days complete
-    td = total_days_complete
+    td = total_days_complete if tasks_exist?
   tr
     th Total days missed
-    td = total_days_missed
+    td = total_days_missed if tasks_exist?
   tr
     th Total unmarked days
-    td = total_unmarked_days
+    td = total_unmarked_days if tasks_exist?
   tr
     th Best streak
-    td = best_overall_streak
+    td = best_overall_streak if tasks_exist?
   tr
     th % complete to date
-    td = overall_percent_complete_to_date
+    td = overall_percent_complete_to_date if tasks_exist?

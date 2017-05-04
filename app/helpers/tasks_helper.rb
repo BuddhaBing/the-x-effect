@@ -32,4 +32,8 @@ module TasksHelper
     "#{number_with_precision(total, precision: 2)}%"
   end
 
+  def tasks_exist?
+    !@tasks.empty?
+  end
+
 end
