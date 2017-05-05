@@ -56,14 +56,14 @@ class Task < ApplicationRecord
 
   def percent_complete_to_date
     comp, missed, unmarked = days_complete.to_f, days_missed.to_f, unmarked_days.to_f
-    return "0.00%" if comp + missed + unmarked == 0.0
-    "#{number_with_precision((comp / (comp + missed + unmarked)) * 100, precision: 2)}%"
+    return number_to_percentage(0, precision: 2) if comp + missed + unmarked == 0.0
+    number_to_percentage((comp / (comp + missed + unmarked)) * 100, precision: 2)
   end
 
   def percent_complete_overall
     comp, missed, unmarked, days = days_complete.to_f, days_missed.to_f, unmarked_days.to_f, days_remaining.to_f
-    return "0.00%" if comp + missed + unmarked == 0.0
-    "#{number_with_precision((comp / (comp + missed + unmarked + days)) * 100, precision: 2)}%"
+    return number_to_percentage(0, precision: 2) if comp + missed + unmarked == 0
+    number_to_percentage((comp / (comp + missed + unmarked + days)) * 100, precision: 2)
   end
 
 end

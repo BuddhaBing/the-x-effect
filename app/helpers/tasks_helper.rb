@@ -27,9 +27,13 @@ module TasksHelper
   end
 
   def overall_percent_complete_to_date
-    arr = @tasks.map { |task| task.percent_complete_to_date.gsub(/%/, "").to_f }
+    arr = @tasks.map { |task| task.percent_complete_to_date.to_f }
     total = arr.reduce { |sum, percent| sum + percent } / @tasks.size
-    "#{number_with_precision(total, precision: 2)}%"
+    number_to_percentage(total, precision: 2)
+  end
+
+  def best_habit
+    @tasks.max_by(&:percent_complete_to_date).name
   end
 
   def tasks_exist?
