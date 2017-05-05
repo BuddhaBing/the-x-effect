@@ -17,13 +17,15 @@
       h3 Active Tasks
       - colors = %w(primary success info warning).cycle.each
       - active_tasks.each do |task|
-        div class="card card-inverse card-#{colors.next} mb-3 text-center"
+        - color = colors.next
+        div class="card card-inverse card-#{color} mb-3 text-center"
           .card-block
             .card-blockquote
               = link_to task_path(task), class: "task-link"
                 h4.card-title = task.name
               p.card-text = task.description
               p.card-text = task.tags.map(&:name).join(", ")
+              == render "tasks/partials/show_stats", task: task, color: color
   .col-md-3
 - if @tasks.any? { |task| !task.active? }
   .row.inactive-tasks
@@ -32,11 +34,13 @@
       h3 Inactive Tasks
       - colors = %w(primary success info warning).cycle.each
       - inactive_tasks.each do |task|
-        div class="card card-inverse card-#{colors.next} mb-3 text-center"
+        - color = colors.next
+        div class="card card-inverse card-#{colors} mb-3 text-center"
           .card-block
             .card-blockquote
               = link_to task_path(task), class: "task-link"
                 h4.card-title = task.name
               p.card-text = task.description
               p.card-text = task.tags.map(&:name).join(", ")
+              == render "tasks/partials/show_stats", task: task, color: color
     .col-md-3
